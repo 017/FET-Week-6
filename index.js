@@ -20,15 +20,15 @@ const connect = (cb) => {
       }
     });
   }
-}
+};
 
 const getPrimaryKey = (_id) => {
   return ObjectID(_id);
-}
+};
 
 const getDB = () => {
   return state.db;
-}
+};
 
 module.exports = {getDB, connect, getPrimaryKey};
 
@@ -84,7 +84,6 @@ class ItemService {
 
 class DOMManager {
   constructor() {
-    this.items;
   }
 
   static items;
