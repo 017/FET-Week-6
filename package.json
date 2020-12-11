@@ -1,0 +1,24 @@
+{
+  "name": "FET-Week-6",
+  "version": "1.0.0",
+  "description": "CRUD Application",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.3",
+    "express": "^4.17.1",
+    "init": "^0.1.2",
+    "install": "^0.13.0",
+    "jquery": "^3.5.1",
+    "mongodb": "^3.6.3",
+    "npm": "^6.14.9",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

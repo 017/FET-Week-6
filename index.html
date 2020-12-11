@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>CRUD</title>
+    <link rel="stylesheet" type='text/css' href='./styles.css'>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="node_modules\bootstrap\dist\css\bootstrap.css">
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/e122de931b.js" crossorigin="anonymous"></script>
+  </head>
+  <body class='container'>
+    <!-- Main -->
+    <main>
+      <div id='new-item' class='jumbotron'>
+        <h2>New Item</h2>
+        <input type='text' id='new-item-name' class='form-control'> <br>
+        <button id='create-new-item' class='btn btn-dark form-control'>Create</button>
+      </div>
+      <div id='app'>
+
+      </div>
+    </main>
+    <!-- Begin Footer -->
+    <footer>
+
+    </footer>
+    <!-- Bootstrap Javascript -->
+    <script src="node_modules\jquery\dist\jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="node_modules\bootstrap\dist\js\bootstrap.js"></script>
+    <!-- Local JS -->    
+    <script src="index.js"></script>
+
+    <script>
+      $(document).ready(() => {
+        const display = $("#display");
+        const form = $("#form");
+        const itemUserInput = $('#itemUserInput');
+
+        const getItems = () => {
+          fetch('/getItems', {method : 'get'}).then((resp) => {
+            return response.json();
+          }).then((data) => {
+            console.log(data);
+            displayItems(data);
+          });
+        }
+
+        getItems();
+
+        const resetItemsInput = () => {
+          itemUserInput.val('');
+        }
+
+        const buildIDs = (item) => {
+          return {
+            editID : "edit_" + item._id,
+            deleteID : "delete_" + item._id,
+            listItemID : "listItem_" + item._id,
+            itemID : "item_" + item._id
+          }
+        }
+
+        const buildTemplate = (item, ids) => {
+          return `<li class="list-group-item" id="${ids.listItemID}">
+          <div class="row">
+            <div class="col-md-4" id="${ids.itemID}">${item.item}</div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4 text-right">
+              <button type="button" class="btn btn-secondary" id="${ids.editID}">Edit</button>
+              <button type="button" class="btn btn-danger" id="${ids.deleteID}">Delete</button>
+            </div>
+          </div>
+        </li>`;
+        }
+
+        const displayItems = (data) => {
+          data.forEach((item) => {
+            let ids = buildIDs(item);
+            display.append(buildTemplate(item, ids));
+            editItem(item, ids.itemID, ids.editID);
+            deleteItem(item, ids.listItemID, ids.deleteID);
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
